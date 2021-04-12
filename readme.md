@@ -11,15 +11,15 @@ sdk repo at: https://github.com/ragemultiplayer/ragemp-cppsdk
 ```c++
 class IEventHandler
 {
-	public:
-		virtual IEntityHandler *GetEntityHandler();
-		virtual IPlayerHandler *GetPlayerHandler();
-		virtual IVehicleHandler *GetVehicleHandler();
-		virtual IColshapeHandler *GetColshapeHandler();
-		virtual ICheckpointHandler *GetCheckpointHandler();
-		virtual IMarkerHandler *GetMarkerHandler();
-		virtual IPickupHandler *GetPickupHandler();
-		virtual ITickHandler *GetTickHandler();
+    public:
+        virtual IEntityHandler *GetEntityHandler();
+        virtual IPlayerHandler *GetPlayerHandler();
+        virtual IVehicleHandler *GetVehicleHandler();
+        virtual IColshapeHandler *GetColshapeHandler();
+        virtual ICheckpointHandler *GetCheckpointHandler();
+        virtual IMarkerHandler *GetMarkerHandler();
+        virtual IPickupHandler *GetPickupHandler();
+        virtual ITickHandler *GetTickHandler();
         virtual ILocalEventHandler *GetLocalEventHandler();
         virtual IConnectionHandler *GetConnectionHandler();
         virtual IDebugHandler *GetDebugHandler();
@@ -29,8 +29,8 @@ class IEventHandler
 
 class ITickHandler
 {
-	public:
-		virtual void Tick();
+    public:
+        virtual void Tick();
 };
 
 // it would be like
