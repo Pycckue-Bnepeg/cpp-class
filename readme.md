@@ -3,6 +3,8 @@ adds ability to create structs and traits compatible with c++ virtual classes.
 
 currently supports only multiple inheritance classes without any data. only virtual functions.
 
+gcc only?
+
 ## example
 this has been written to support ragemp cpp sdk to develop plugins.
 
