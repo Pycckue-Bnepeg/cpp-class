@@ -7,7 +7,7 @@ use syn::{
     parse_macro_input,
     punctuated::Punctuated,
     spanned::Spanned,
-    Attribute, Ident, Item, ItemMod, LitInt, LitStr, Signature, Token,
+    Attribute, Ident, Item, ItemMod, LitStr, Signature, Token,
 };
 
 pub fn make_vtable(attr: TokenStream, input: TokenStream) -> TokenStream {

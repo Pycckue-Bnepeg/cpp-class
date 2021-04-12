@@ -69,14 +69,14 @@ pub mod handler {
     // your struct can contain any data with any repr
     #[vtable::derive(IEventHandler, ITickHandler)]
     pub struct Handler {
-        pub data_1: usize,
-        pub data_2: u32,
+        pub my_data: String,
+        pub counter: u32,
     }
 
     // default abi is fastcall
     // type_name is a name of a class name defined at headers (or in a executable) (nul char is append by the macro)
     // no data
-    #[vtable::virtual_class(abi = fastcall, link_name = "N4rage13IEventHandlerE")]
+    #[vtable::virtual_class(abi = fastcall, type_name = "N4rage13IEventHandlerE")]
     trait IEventHandler {
         // no default impl at this moment
         // also destructors are not supported
@@ -96,7 +96,7 @@ pub mod handler {
         fn rpc_handler(&mut self) -> bool;
     }
 
-    #[vtable::virtual_class(abi = fastcall, link_name = "N4rage12ITickHandlerE")]
+    #[vtable::virtual_class(abi = fastcall, type_name = "N4rage12ITickHandlerE")]
     trait ITickHandler {
         fn tick(&mut self);
     }
@@ -111,9 +111,9 @@ pub mod handler {
 
     impl ITickHandler for Handler {
         fn tick(&mut self) {
-            println!("tick! value {:X} prev {}", self.data_1, self.data_2);
-            self.data_2 += 1;
-            println!("new {}", self.data_2);
+            println!("tick! my_data {:?} prev_count {}", self.my_data, self.counter);
+            self.counter += 1;
+            println!("new {}", self.counter);
         }
     }
 }
@@ -122,8 +122,8 @@ pub mod handler {
 #[no_mangle]
 pub extern "C" fn InitializePlugin(mp: *mut rage::PluginManager) -> u64 {
     let object = handler::Handler {
-        data_1: 0xAABBCCDD,
-        data_2: 0,
+        my_data: String::from("what?"),
+        counter: 0,
     };
 
     // cpp_class::vtable generates make_boxed and from_boxed functions
