@@ -34,24 +34,26 @@ pub struct Attrs {
 }
 
 impl Parse for Attrs {
-    fn parse(input: ParseStream) -> syn::Result<Self> {
-        let ident = input.parse::<Ident>()?;
+    fn parse(_input: ParseStream) -> syn::Result<Self> {
+        // let ident = input.parse::<Ident>()?;
 
-        // TODO: libstdc++
-        if ident != "known_tables" {
-            abort!(ident, "Expect known_tables");
-        }
+        // // TODO: libstdc++
+        // if ident != "known_tables" {
+        //     abort!(ident, "Expect known_tables");
+        // }
 
-        let content;
-        syn::parenthesized!(content in input);
+        // let content;
+        // syn::parenthesized!(content in input);
 
-        let tables: Punctuated<_, Token![,]> = content.parse_terminated(LitInt::parse)?;
-        let known_tables = tables
-            .iter()
-            .filter_map(|val| val.base10_parse::<usize>().ok())
-            .collect();
+        // let tables: Punctuated<_, Token![,]> = content.parse_terminated(LitInt::parse)?;
+        // let known_tables = tables
+        //     .iter()
+        //     .filter_map(|val| val.base10_parse::<usize>().ok())
+        //     .collect();
 
-        Ok(Attrs { known_tables })
+        Ok(Attrs {
+            known_tables: Vec::new(),
+        })
     }
 }
 

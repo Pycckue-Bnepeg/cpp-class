@@ -59,10 +59,10 @@ rust version
 ```rust
 use cpp_class::vtable;
 
-// there is no bindings to libstdc++ so you should find this classes in the executable
-// first address is __cxxabiv1::__vmi_class_type_info
-// second address is __cxxabiv1::__class_type_info
-#[vtable(known_tables(0x3EEEBC8, 0x3EEED08))]
+// supports this:
+// __cxxabiv1::__vmi_class_type_info
+// __cxxabiv1::__class_type_info
+#[vtable]
 pub mod handler {
 
     // list of parents, it should be 2+

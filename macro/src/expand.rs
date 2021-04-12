@@ -23,10 +23,10 @@ pub fn expand(attrs: Attrs, vtable: VTableDefinition) -> TokenStream {
     }
 }
 
-fn make_vtables(attrs: &Attrs, vtable: &VTableDefinition) -> TokenStream {
+fn make_vtables(_attrs: &Attrs, vtable: &VTableDefinition) -> TokenStream {
     let krate = crate_name("cpp-class");
     let child = quote::format_ident!("Ref{}", vtable.child.ident);
-    let base_ti_vtable = attrs.known_tables[1];
+    // let base_ti_vtable = attrs.known_tables[1];
     let mut items = Vec::new();
 
     for (offset, base) in vtable.bases.iter().enumerate() {
@@ -92,8 +92,9 @@ fn make_vtables(attrs: &Attrs, vtable: &VTableDefinition) -> TokenStream {
                     #(#table_fields)*
                 }
 
-                pub const TYPE_INFO: #krate::BaseTypeInfo = #krate::BaseTypeInfo {
-                    vtable: #base_ti_vtable,
+                pub static TYPE_INFO: #krate::BaseTypeInfo = #krate::BaseTypeInfo {
+                    // vtable: #base_ti_vtable,
+                    vtable: unsafe { &#krate::class_type_info.vtable },
                     name: #type_name.as_ptr(),
                 };
 
@@ -159,7 +160,7 @@ fn make_mod_items(vtable: &VTableDefinition) -> TokenStream {
     }
 }
 
-fn make_typeinfo_structs(attrs: &Attrs, vtable: &VTableDefinition) -> TokenStream {
+fn make_typeinfo_structs(_attrs: &Attrs, vtable: &VTableDefinition) -> TokenStream {
     let krate = crate_name("cpp-class");
     let ti = quote::format_ident!("__{}_TYPEINFO", vtable.child.ident);
     let ti_vtable = quote::format_ident!("{}VTable", vtable.child.ident);
@@ -217,7 +218,7 @@ fn make_typeinfo_structs(attrs: &Attrs, vtable: &VTableDefinition) -> TokenStrea
         proc_macro2::Span::call_site(),
     );
 
-    let vtable = attrs.known_tables[0];
+    // let vtable = attrs.known_tables[0];
     let bases_count_u32 = bases_count as u32;
 
     quote! {
@@ -228,7 +229,8 @@ fn make_typeinfo_structs(attrs: &Attrs, vtable: &VTableDefinition) -> TokenStrea
 
         #[allow(non_upper_case_globals)]
         static #ti: #krate::MultipleBasesTypeInfo<#bases_count> = #krate::MultipleBasesTypeInfo {
-            vtable: #vtable,
+            // vtable: #vtable,
+            vtable: unsafe { &#krate::vmi_class_type_info.vtable },
             name: #ti_name.as_ptr(),
             flags: 0,
             bases_count: #bases_count_u32,

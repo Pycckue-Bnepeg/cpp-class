@@ -6,6 +6,7 @@ edition = "2018"
 
 [dependencies]
 cpp-class-macro = { path = "macro" }
+link-cplusplus = { version = "1.0", features = ["libstdc++"] }
 
 [workspace]
 members = ["macro"]
