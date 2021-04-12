@@ -1,0 +1,11 @@
+[package]
+name = "cpp-class"
+version = "0.1.0"
+authors = ["ZOTTCE <zottce@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+cpp-class-macro = { path = "macro" }
+
+[workspace]
+members = ["macro"]
